@@ -66,19 +66,24 @@ export const sendJSON = async function (url, uploadData) {
 };
 */
 
-export const numberToFraction = function (amount) {
+/**
+ * Converts numbers to fractions:
+ * - 1.25 to 1 1/4
+ * - 2 to 2
+ */
+export let numberToFraction = function (amount) {
   // This is a whole number and doesn't need modification.
   if (parseFloat(amount) === parseInt(amount)) {
     return amount;
   }
   // Next 12 lines are cribbed from https://stackoverflow.com/a/23575406.
-  const gcd = function (a, b) {
+  let gcd = function (a, b) {
     if (b < 0.0000001) {
       return a;
     }
     return gcd(b, Math.floor(a % b));
   };
-  const len = amount.toString().length - 2;
+  let len = amount.toString().length - 2;
   let denominator = Math.pow(10, len);
   let numerator = amount * denominator;
   let divisor = gcd(numerator, denominator);
